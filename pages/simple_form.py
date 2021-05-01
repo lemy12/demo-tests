@@ -14,6 +14,8 @@ class DemoSimpleFormPage:
     TWO_INPUT_GET = (By.XPATH, '/html/body/div[2]/div/div[2]/div[2]/div[2]/form/button')
     TWO_INPUT_TOTAL = (By.ID, 'displayvalue')
 
+    ALL_TEXTBOXES = (By.TAG_NAME, 'input')
+
     def __init__(self, browser):
         self.browser = browser
 
@@ -29,7 +31,7 @@ class DemoSimpleFormPage:
         return self.browser.find_element(*self.SINGLE_INPUT_MESSAGE).text
 
     def placeholder_message(self):
-        return self.browser.find_element(*self.SINGLE_INPUT_TEXTBOX).get_attribute("placeholder")
+        return self.browser.find_elements(*self.ALL_TEXTBOXES)
 
     def check_two_input(self, a, b):
         textbox_a = self.browser.find_element(*self.TWO_INPUT_TEXTBOX_A)
