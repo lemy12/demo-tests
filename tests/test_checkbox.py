@@ -11,10 +11,10 @@ def test_single_checkbox(browser):
     page.load()
 
     # Assert that the message is shown after clicking button
-    assert page.check_single_checkbox().value_of_css_property('display') == 'block'
+    assert page.check_single_checkbox() == 'block'
 
     # Assert that the message is hidden after clicking button again
-    assert page.check_single_checkbox().value_of_css_property('display') == 'none'
+    assert page.check_single_checkbox() == 'none'
 
 
 @pytest.mark.multiple_checkbox
