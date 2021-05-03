@@ -2,8 +2,14 @@ import pytest
 
 from pages.simple_form import DemoSimpleFormPage
 
-PHRASE = ['text', '!@#abc123 ']
-NUMBER = [('1', '2', '3'), ('-1', '2', '1'), ('1', 'one', 'NaN')]
+PHRASE = ['text', '!@#abc123 ', '  123', 'aaa   aaa']
+NUMBER = [('1', '2', '3'),
+          ('-1', '2', '1'),
+          ('+1', '2', 'NaN'),
+          ('1.5', '3', '4.5'),
+          ('1', 'one', 'NaN'),
+          ('1', '', 'NaN'),
+          ('1aa', '2', 'NaN')]
 
 
 @pytest.mark.single_input
