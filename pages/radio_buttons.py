@@ -11,8 +11,8 @@ class DemoRadioButtonsPage:
     RADIO_BUTTON_RESULT = (By.CLASS_NAME, 'radiobutton')
 
     # Group radio buttons variables
-    GROUP_RADIO_BUTTONS_SEX = (By.CLASS_NAME, 'gender')
-    GROUP_RADIO_BUTTONS_AGE = (By.CLASS_NAME, 'ageGroup')
+    GROUP_RADIO_BUTTONS_SEX = (By.XPATH, '/html/body/div[2]/div/div[2]/div[2]/div[2]/div[1]/label')
+    GROUP_RADIO_BUTTONS_AGE = (By.XPATH, '/html/body/div[2]/div/div[2]/div[2]/div[2]/div[2]/label')
     GROUP_RADIO_BUTTONS_GETVALUES = (By.XPATH, '/html/body/div[2]/div/div[2]/div[2]/div[2]/button')
     GROUP_RADIO_BUTTONS_RESULT = (By.CLASS_NAME, 'groupradiobutton')
 
@@ -22,20 +22,41 @@ class DemoRadioButtonsPage:
     def load(self):
         self.browser.get(self.URL)
 
-    def check_radio_button(self):
+    def check_radio_button(self, sex):
         """
-        Click on every radio button
-        :return: List of radio button with variables corresponding to their text and given result
+        Click on specified radio
+        :return: Text of result
         """
         radios = self.browser.find_elements(*self.RADIO_BUTTON_AB)
         button = self.browser.find_element(*self.RADIO_BUTTON_GETVALUE)
         result = self.browser.find_element(*self.RADIO_BUTTON_RESULT)
 
-        radio_result_list = []
-
         for each in radios:
-            ActionChains(self.browser).move_to_element(each).click().perform()
-            ActionChains(self.browser).move_to_element(button).click().perform()
-            radio_result_list.append([each.text, result.text])
+            if each.text.lower() == sex:
+                ActionChains(self.browser).move_to_element(each).click().perform()
 
-        return radio_result_list
+        ActionChains(self.browser).move_to_element(button).click().perform()
+
+        return result.text
+
+    def check_group_radio_buttons(self, sex, age):
+        """
+        Click on specified radios
+        :return: Text of result
+        """
+        radios_sex = self.browser.find_elements(*self.GROUP_RADIO_BUTTONS_SEX)
+        radios_age = self.browser.find_elements(*self.GROUP_RADIO_BUTTONS_AGE)
+        button = self.browser.find_element(*self.GROUP_RADIO_BUTTONS_GETVALUES)
+        result = self.browser.find_element(*self.GROUP_RADIO_BUTTONS_RESULT)
+
+        for each in radios_sex:
+            if each.text.lower() == sex:
+                ActionChains(self.browser).move_to_element(each).click().perform()
+
+        for each in radios_age:
+            if each.text.lower() == age:
+                ActionChains(self.browser).move_to_element(each).click().perform()
+
+        ActionChains(self.browser).move_to_element(button).click().perform()
+
+        return result.text
