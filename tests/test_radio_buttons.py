@@ -2,8 +2,9 @@ import pytest
 
 from pages.radio_buttons import DemoRadioButtonsPage
 
+# Parametrize globals
 SEX = ['male', 'female', '']
-GROUPS = [('male', '0 to 5'), ('female', '5 to 15'), ('male', '15 to 50')]
+GROUPS = [('male', '0 to 5'), ('female', '5 to 15'), ('male', '15 to 50'), ('', '0 to 5'), ('male', ''), ('', '')]
 
 
 @pytest.mark.radio_button
@@ -31,5 +32,12 @@ def test_group_radio_buttons(browser, sex, age):
 
     # Assert that chosen radios give assumed result
     text = page.check_group_radio_buttons(sex, age).lower().replace('-', 'to')
-    assert sex in text and age in text
+    if sex and age:
+        assert sex in text and age in text
+    elif not sex and age:
+        assert text == "sex :\nage group: " + age
+    elif sex and not age:
+        assert text == "sex : " + sex + "\nage group:"
+    else:
+        assert text == "sex :\nage group:"
 

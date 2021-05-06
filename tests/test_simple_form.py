@@ -2,6 +2,7 @@ import pytest
 
 from pages.simple_form import DemoSimpleFormPage
 
+# Parametrize globals
 PHRASE = ['text', '!@#abc123 ', '  123', 'aaa   aaa']
 NUMBER = [('1', '2', '3'),
           ('-1', '2', '1'),
