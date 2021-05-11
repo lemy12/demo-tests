@@ -11,8 +11,6 @@ class DemoSelectDropdownPage:
     SELECT_LIST_DROPDOWN = (By.ID, 'select-demo')
     SELECT_LIST_RESULT = (By.CLASS_NAME, 'selected-value')
 
-    TEMP = (By.XPATH, '/html/body/div[2]/div/div[2]/div[1]/div[2]/select/option[3]')
-
     # Multi select list variables
     MSELECT_LIST_MAIN = (By.ID, 'multi-select')
     MSELECT_LIST_BUTTON_FIRST = (By.ID, 'printMe')
