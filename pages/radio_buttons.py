@@ -24,8 +24,9 @@ class DemoRadioButtonsPage:
 
     def check_radio_button(self, sex):
         """
-        Click on specified radio
-        :return: Text of result
+        Click on specified radio and then click on "get value" button
+        :param sex: Chosen sex (string)
+        :return: Text of result (string)
         """
         radios = self.browser.find_elements(*self.RADIO_BUTTON_AB)
         button = self.browser.find_element(*self.RADIO_BUTTON_GETVALUE)
@@ -41,8 +42,10 @@ class DemoRadioButtonsPage:
 
     def check_group_radio_buttons(self, sex, age):
         """
-        Click on specified radios
-        :return: Text of result
+        Click on specified radios and then click "get values" button
+        :param sex: Chosen sex (string)
+        :param age: Chosen age (string)
+        :return: Text of result (string)
         """
         radios_sex = self.browser.find_elements(*self.GROUP_RADIO_BUTTONS_SEX)
         radios_age = self.browser.find_elements(*self.GROUP_RADIO_BUTTONS_AGE)

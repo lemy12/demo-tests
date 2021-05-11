@@ -26,6 +26,11 @@ class DemoSelectDropdownPage:
         self.browser.get(self.URL)
 
     def check_select_list(self, day):
+        """
+        Select specified day
+        :param day: Chosen day (string)
+        :return: Text of result (string)
+        """
         dropdown = Select(self.browser.find_element(*self.SELECT_LIST_DROPDOWN))
         result = self.browser.find_element(*self.SELECT_LIST_RESULT)
 
@@ -34,6 +39,12 @@ class DemoSelectDropdownPage:
         return result.text
 
     def check_multi_select_list(self, city, choice):
+        """
+        Click on specified cities and then click on specified button (choice)
+        :param city: List of chosen cities (strings)
+        :param choice: Chosen button (string)
+        :return: Text of result (string) based on chosen button
+        """
         dropdown = self.browser.find_element(*self.MSELECT_LIST_MAIN)
         dropdown_options = dropdown.find_elements_by_tag_name("option")
         result_first = self.browser.find_element(*self.MSELECT_LIST_BUTTON_FIRST)

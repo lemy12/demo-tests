@@ -4,9 +4,9 @@ from pages.select_dropdown import DemoSelectDropdownPage
 
 # Parametrize globals
 DAY = ['Sunday', 'Saturday']
-CITY = [(['California'], 'first'),
-        (['Pennsylvania', 'Washington'], 'first'),
-        (['Florida', 'Ohio', 'Texas'], 'all')]
+CITY = [(['California']),
+        (['Pennsylvania', 'Washington']),
+        (['Florida', 'Ohio', 'Texas'])]
 
 
 @pytest.mark.select_list
@@ -22,20 +22,31 @@ def test_select_list(browser, day):
 
 
 @pytest.mark.multi_select_list
-@pytest.mark.parametrize('city,choice', CITY)
-def test_multi_select_list(browser, city, choice):
+@pytest.mark.multi_select_list_first
+@pytest.mark.parametrize('city', CITY)
+def test_multi_select_list_first(browser, city):
     page = DemoSelectDropdownPage(browser)
 
     # Load webpage
     page.load()
 
-    # Assert that chosen day is in result message
-    result = page.check_multi_select_list(city, choice)
+    # Assert that first chosen city is in result
+    result = page.check_multi_select_list(city, "first")
+    assert "First selected option is :" in result
+    assert city[0] in result
 
-    if choice == "first":
-        assert "First selected option is :" in result
-        assert city[0] in result
-    elif choice == "all":
-        assert "Options selected are :" in result
-        for each in city:
-            assert each in result
+
+@pytest.mark.multi_select_list
+@pytest.mark.multi_select_list_all
+@pytest.mark.parametrize('city', CITY)
+def test_multi_select_list_all(browser, city):
+    page = DemoSelectDropdownPage(browser)
+
+    # Load webpage
+    page.load()
+
+    # Assert that chosen cities are in result
+    result = page.check_multi_select_list(city, "all")
+    assert "Options selected are :" in result
+    for each in city:
+        assert each in result

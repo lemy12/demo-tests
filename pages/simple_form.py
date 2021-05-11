@@ -28,8 +28,8 @@ class DemoSimpleFormPage:
     def check_single_input(self, phrase):
         """
         Send specified phrase and manually click on show button
-        :param phrase: phrase used in tests
-        :return: text of result message
+        :param phrase: chosen phrase (string)
+        :return: text of result message (string)
         """
         textbox = self.browser.find_element(*self.SINGLE_INPUT_TEXTBOX)
         show = self.browser.find_element(*self.SINGLE_INPUT_SHOW)
@@ -46,9 +46,9 @@ class DemoSimpleFormPage:
     def check_two_input(self, a, b):
         """
         Send specified values and manually click on total button
-        :param a: value of first textbox
-        :param b: value of second textbox
-        :return: text of total message
+        :param a: value of first textbox (string)
+        :param b: value of second textbox (string)
+        :return: text of total message (string)
         """
         textbox_a = self.browser.find_element(*self.TWO_INPUT_TEXTBOX_A)
         textbox_b = self.browser.find_element(*self.TWO_INPUT_TEXTBOX_B)
