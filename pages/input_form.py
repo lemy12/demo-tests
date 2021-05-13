@@ -26,9 +26,23 @@ class DemoInputFormPage:
     def load(self):
         self.browser.get(self.URL)
 
-    def check_name(self, name):
+    def check_fname(self, name):
         name_box = self.browser.find_element(*self.FIRST_NAME)
         name_box.send_keys("a", Keys.BACKSPACE, name)
 
         errors = self.browser.find_elements_by_xpath("//small[@data-bv-for='first_name']")
+        return errors[0].value_of_css_property('display'), errors[1].value_of_css_property('display')
+
+    def check_lname(self, name):
+        name_box = self.browser.find_element(*self.LAST_NAME)
+        name_box.send_keys("a", Keys.BACKSPACE, name)
+
+        errors = self.browser.find_elements_by_xpath("//small[@data-bv-for='last_name']")
+        return errors[0].value_of_css_property('display'), errors[1].value_of_css_property('display')
+
+    def check_email(self, email):
+        email_box = self.browser.find_element(*self.EMAIL)
+        email_box.send_keys("a", Keys.BACKSPACE, email)
+
+        errors = self.browser.find_elements_by_xpath("//small[@data-bv-for='email']")
         return errors[0].value_of_css_property('display'), errors[1].value_of_css_property('display')
