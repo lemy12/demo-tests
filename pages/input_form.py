@@ -26,23 +26,10 @@ class DemoInputFormPage:
     def load(self):
         self.browser.get(self.URL)
 
-    def check_fname(self, name):
-        name_box = self.browser.find_element(*self.FIRST_NAME)
-        name_box.send_keys("a", Keys.BACKSPACE, name)
+    def check_errors(self, text, input_type):
+        textbox = self.browser.find_element_by_name(input_type)
+        textbox.send_keys("a", Keys.BACKSPACE, text)
 
-        errors = self.browser.find_elements_by_xpath("//small[@data-bv-for='first_name']")
-        return errors[0].value_of_css_property('display'), errors[1].value_of_css_property('display')
-
-    def check_lname(self, name):
-        name_box = self.browser.find_element(*self.LAST_NAME)
-        name_box.send_keys("a", Keys.BACKSPACE, name)
-
-        errors = self.browser.find_elements_by_xpath("//small[@data-bv-for='last_name']")
-        return errors[0].value_of_css_property('display'), errors[1].value_of_css_property('display')
-
-    def check_email(self, email):
-        email_box = self.browser.find_element(*self.EMAIL)
-        email_box.send_keys("a", Keys.BACKSPACE, email)
-
-        errors = self.browser.find_elements_by_xpath("//small[@data-bv-for='email']")
-        return errors[0].value_of_css_property('display'), errors[1].value_of_css_property('display')
+        errors = self.browser.find_elements_by_xpath("//small[@data-bv-for='" + input_type + "']")
+        return {errors[i].get_attribute("data-bv-validator"): errors[i].value_of_css_property('display')
+                for i in range(0, len(errors)-1)}
