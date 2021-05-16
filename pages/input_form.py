@@ -7,19 +7,6 @@ from selenium.webdriver.support.ui import Select
 class DemoInputFormPage:
     URL = 'https://www.seleniumeasy.com/test/input-form-demo.html'
 
-    # Input form variables
-    FIRST_NAME = (By.NAME, "first_name")
-    LAST_NAME = (By.NAME, "last_name")
-    EMAIL = (By.NAME, "email")
-    PHONE = (By.NAME, "phone")
-    ADDRESS = (By.NAME, "address")
-    CITY = (By.NAME, "city")
-    STATE = (By.NAME, "state")
-    ZIP_CODE = (By.NAME, "zip")
-    WEBSITE = (By.NAME, "website")
-    HOSTING_RADIOS = (By.NAME, "name")
-    DESC = (By.NAME, "comment")
-
     def __init__(self, browser):
         self.browser = browser
 
@@ -32,4 +19,18 @@ class DemoInputFormPage:
 
         errors = self.browser.find_elements_by_xpath("//small[@data-bv-for='" + input_type + "']")
         return {errors[i].get_attribute("data-bv-validator"): errors[i].value_of_css_property('display')
-                for i in range(0, len(errors)-1)}
+                for i in range(0, len(errors))}
+
+    def check_error_state(self, state):
+        states_list = Select(self.browser.find_element_by_name("state"))
+        states_list.select_by_visible_text(state)
+
+        return self.browser.find_element_by_xpath("//small[@data-bv-for='state']").value_of_css_property('display')
+
+    def check_radios(self, radio):
+        radio_element = self.browser.find_element_by_xpath("//input[@value='" + radio + "']")
+        ActionChains(self.browser).move_to_element(radio_element).click().perform()
+
+    def check_send_button(self):
+        button = self.browser.find_element_by_class_name("btn btn-default")
+        return button.get_attribute("disabled")
